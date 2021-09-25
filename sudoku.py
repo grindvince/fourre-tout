@@ -1,4 +1,5 @@
 from random import choice
+import requests
 
 class Sudoku:
     def __init__(self,grid):
@@ -46,6 +47,7 @@ class Sudoku:
                     test.remove(self.grid[y//3*3+j][x//3*3+i])
         return test
 
+"""    grille test commentée
 grid = [
         [6,0,0, 1,7,0, 0,0,5],
         [0,0,0, 0,4,0, 0,2,0],
@@ -59,6 +61,14 @@ grid = [
         [0,0,0, 0,1,0, 6,0,0],
         [7,0,0, 3,0,0, 0,0,0]
         ]
+"""
+
+
+response = requests.get("https://sugoku.herokuapp.com/board?difficulty=easy") #importation grille depuis internet
+grid = response.json()['board']
+
+
+
 Sudoku_1 = Sudoku(grid)
 Sudoku_1.display()
 Sudoku_1.solve()
